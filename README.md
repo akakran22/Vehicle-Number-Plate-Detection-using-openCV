@@ -1,2 +1,7 @@
 # Vehicle-Number-Plate-Detection-using-openCV
-Extracting the number from all the images in a folder at once.
+Clone the project or download all the files and put in a folder.
+
+Change the path of the folder accourding to your device.
+
+
+Then run the program.
