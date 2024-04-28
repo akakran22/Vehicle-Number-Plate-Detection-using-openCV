@@ -5,10 +5,7 @@ import easyocr
 import csv
 import os
 
-# Folder containing the images
-folder_path = r"C:\Users\Aryan Kakran\Desktop\p\images"
-
-# CSV file to store the extracted plates
+folder_path = "images"   #your folder path 
 csv_filename = 'extracted_plates2.csv'
 
 # Initialize EasyOCR reader
@@ -24,15 +21,13 @@ for filename in os.listdir(folder_path):
     if filename.endswith(('.jpg', '.jpeg', '.png')):
         image_path = os.path.join(folder_path, filename)
 
-        # Load image
-        img = cv2.imread(image_path)
+        img = cv2.imread(image_path) #Loading the image
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # Apply image processing
         bfilter = cv2.bilateralFilter(gray, 11, 17, 17)  # noise reduction
         edged = cv2.Canny(bfilter, 30, 200)  # Edge detection
 
-        # Find contours
+        # Contours
         Keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         contours = imutils.grab_contours(Keypoints)
         if contours:
@@ -60,7 +55,7 @@ for filename in os.listdir(folder_path):
                 else:
                     text = "No text detected"
 
-                # Write to CSV file
+                # Write numbers to csv file
                 with open(csv_filename, mode='a', newline='') as file:
                     writer = csv.writer(file)
                     writer.writerow([filename, text])
